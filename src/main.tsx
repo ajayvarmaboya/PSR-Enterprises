@@ -80,7 +80,11 @@ function App() {
           <label className="sort"><SlidersHorizontal size={16}/><select aria-label="Sort products" value={sort} onChange={event => setSort(event.target.value)}><option value="featured">Featured</option><option value="low">Price: Low to high</option><option value="high">Price: High to low</option></select></label>
         </div>
         {results.length ? <div className="product-grid">{results.map(product => <article className="product" key={product.id}>
-          <div className="product-image"><img loading="lazy" src={`/${product.id}.webp`} alt={product.name}/></div>
+          <div className="product-image"><img
+  loading="lazy"
+  src={`${import.meta.env.BASE_URL}${product.id}.webp`}
+  alt={product.name}
+/></div>
           <div className="product-content"><p className="product-category">{product.category}</p><h3>{product.name}</h3><p className="detail">{product.detail}</p>
           <div className="price-row"><strong>{rupees.format(product.price)}</strong><button aria-label={`Add ${product.name} to quote`} onClick={() => changeQuantity(product.id, 1)} disabled={quote[product.id] === 999}><Plus size={17}/>{quote[product.id] ? `Added (${quote[product.id]})` : "Add to quote"}</button></div></div>
         </article>)}</div> : <div className="empty"><h3>No matching products</h3><button className="primary" onClick={() => {setQuery("");setCategory("All products");}}>Show all products</button></div>}
